@@ -116,18 +116,58 @@ public class OAuth2Swift: NSObject {
             data, response in
             var responseJSON: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
             var accessToken = ""
+			var refreshToken = ""
             if let parameters:NSDictionary = responseJSON as? NSDictionary{
                 accessToken = parameters["access_token"] as! String
+				if((parameters.objectForKey("refresh_token")) != nil){
+					refreshToken = parameters["refresh_token"] as! String
+				}
             } else {
                 let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String!
                 let parameters = responseString.parametersFromQueryString()
                 accessToken = parameters["access_token"]!
+				if (contains(parameters.keys, "refresh_token")){
+					refreshToken = parameters["refresh_token"]!
+				}
             }
             self.client.credential.oauth_token = accessToken
             self.client.credential.oauth2 = true
+			self.client.credential.oauth_token_refresh = refreshToken
             success(credential: self.client.credential, response: response)
         }, failure: failure)
     }
+	
+	public func postOAuthAccessTokenWithRefreshToken(refresh_token: String, success: TokenSuccessHandler, failure: FailureHandler?) {
+		var parameters = Dictionary<String, AnyObject>()
+		parameters["client_id"] = self.consumer_key
+		parameters["client_secret"] = self.consumer_secret
+		parameters["grant_type"] = "refresh_token"
+		parameters["refresh_token"] = refresh_token
+		
+		self.client.post(self.access_token_url!, parameters: parameters, success: {
+			data, response in
+			var responseJSON: AnyObject? = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+			var accessToken = ""
+			var refreshToken = ""
+			if let parameters:NSDictionary = responseJSON as? NSDictionary{
+				accessToken = parameters["access_token"] as! String
+				if((parameters.objectForKey("refresh_token")) != nil){
+					refreshToken = parameters["refresh_token"] as! String
+				}
+			} else {
+				let responseString = NSString(data: data, encoding: NSUTF8StringEncoding) as String!
+				let parameters = responseString.parametersFromQueryString()
+				accessToken = parameters["access_token"]!
+				if (contains(parameters.keys, "refresh_token")){
+					refreshToken = parameters["refresh_token"]!
+				}
+			}
+			self.client.credential.oauth_token = accessToken
+			self.client.credential.oauth2 = true
+			self.client.credential.oauth_token_refresh = refreshToken
+			success(credential: self.client.credential, response: response)
+			}, failure: failure)
+	}
     
     public class func handleOpenURL(url: NSURL) {
         let notification = NSNotification(name: CallbackNotification.notificationName, object: nil,

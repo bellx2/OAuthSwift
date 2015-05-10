@@ -15,7 +15,8 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
     public var oauth_token_secret: String = String()
     var oauth_verifier: String = String()
     public var oauth2 = false
-    
+	public var oauth_token_refresh: String = String()
+	
     override init(){
         
     }
@@ -35,6 +36,7 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
         static let oauthToken = base + "oauth_token"
         static let oauthTokenSecret = base + "oauth_token_secret"
         static let oauthVerifier = base + "oauth_verifier"
+		static let oauthTokenRefresh = base + "oauth_token_referesh"
     }
     
     // Cannot declare a required initializer within an extension.
@@ -46,6 +48,7 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
         self.oauth_token = (decoder.decodeObjectForKey(CodingKeys.oauthToken) as? String) ?? String()
         self.oauth_token_secret = (decoder.decodeObjectForKey(CodingKeys.oauthTokenSecret) as? String) ?? String()
         self.oauth_verifier = (decoder.decodeObjectForKey(CodingKeys.oauthVerifier) as? String) ?? String()
+		self.oauth_token_refresh = (decoder.decodeObjectForKey(CodingKeys.oauthTokenRefresh) as? String) ?? String()
     }
     
     public func encodeWithCoder(coder: NSCoder) {
@@ -54,6 +57,7 @@ public class OAuthSwiftCredential: NSObject, NSCoding {
         coder.encodeObject(self.oauth_token, forKey: CodingKeys.oauthToken)
         coder.encodeObject(self.oauth_token_secret, forKey: CodingKeys.oauthTokenSecret)
         coder.encodeObject(self.oauth_verifier, forKey: CodingKeys.oauthVerifier)
+		coder.encodeObject(self.oauth_token_refresh, forKey: CodingKeys.oauthTokenRefresh)
     }
     // } // End NSCoding extension
 }
