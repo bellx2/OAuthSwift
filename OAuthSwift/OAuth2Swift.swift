@@ -129,7 +129,10 @@ public class OAuth2Swift: NSObject {
                 }
                 
                 let accessToken = responseParameters["access_token"] as! String
-                let refreshToken = responseParameters["refresh_token"] as! String
+                var refreshToken = ""
+                if((responseParameters.objectForKey("refresh_token")) != nil){
+                    refreshToken = parameters["refresh_token"] as! String
+                }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
                 self.client.credential.oauth_token_refresh = refreshToken
@@ -150,7 +153,10 @@ public class OAuth2Swift: NSObject {
                 }
 
                 let accessToken = responseParameters["access_token"] as! String
-                let refreshToken = responseParameters["refresh_token"] as! String
+                var refreshToken = ""
+                if((responseParameters.objectForKey("refresh_token")) != nil){
+                    refreshToken = parameters["refresh_token"] as! String
+                }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
                 self.client.credential.oauth_token_refresh = refreshToken
@@ -159,8 +165,8 @@ public class OAuth2Swift: NSObject {
         }
         
     }
-	
-	public func postOAuthAccessTokenWithRefreshToken(refresh_token: String, success: TokenSuccessHandler, failure: FailureHandler?) {
+    
+    public func postOAuthAccessTokenWithRefreshToken(refresh_token: String, success: TokenSuccessHandler, failure: FailureHandler?) {
 //
         var parameters = Dictionary<String, AnyObject>()
         parameters["client_id"] = self.consumer_key
@@ -182,7 +188,10 @@ public class OAuth2Swift: NSObject {
                 }
                 
                 let accessToken = responseParameters["access_token"] as! String
-                let refreshToken = responseParameters["refresh_token"] as! String
+                var refreshToken = ""
+                if((responseParameters.objectForKey("refresh_token")) != nil){
+                    refreshToken = parameters["refresh_token"] as! String
+                }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
                 self.client.credential.oauth_token_refresh = refreshToken
@@ -203,15 +212,17 @@ public class OAuth2Swift: NSObject {
                 }
 
                 let accessToken = responseParameters["access_token"] as! String
-                let refreshToken = responseParameters["refresh_token"] as! String
+                var refreshToken = ""
+                if((responseParameters.objectForKey("refresh_token")) != nil){
+                    refreshToken = parameters["refresh_token"] as! String
+                }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
-                self.client.credential.oauth_token_refresh = refreshToken
                 success(credential: self.client.credential, response: response, parameters: responseParameters)
             }, failure: failure)
         }
 
-	}
+    }
     
     public class func handleOpenURL(url: NSURL) {
         let notification = NSNotification(name: CallbackNotification.notificationName, object: nil,
