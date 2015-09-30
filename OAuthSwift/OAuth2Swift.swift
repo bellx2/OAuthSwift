@@ -131,7 +131,7 @@ public class OAuth2Swift: NSObject {
                 let accessToken = responseParameters["access_token"] as! String
                 var refreshToken = ""
                 if((responseParameters.objectForKey("refresh_token")) != nil){
-                    refreshToken = parameters["refresh_token"] as! String
+                    refreshToken = responseParameters["refresh_token"] as! String
                 }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
@@ -155,7 +155,7 @@ public class OAuth2Swift: NSObject {
                 let accessToken = responseParameters["access_token"] as! String
                 var refreshToken = ""
                 if((responseParameters.objectForKey("refresh_token")) != nil){
-                    refreshToken = parameters["refresh_token"] as! String
+                    refreshToken = responseParameters["refresh_token"] as! String
                 }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
@@ -190,7 +190,7 @@ public class OAuth2Swift: NSObject {
                 let accessToken = responseParameters["access_token"] as! String
                 var refreshToken = ""
                 if((responseParameters.objectForKey("refresh_token")) != nil){
-                    refreshToken = parameters["refresh_token"] as! String
+                    refreshToken = responseParameters["refresh_token"] as! String
                 }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
@@ -214,7 +214,7 @@ public class OAuth2Swift: NSObject {
                 let accessToken = responseParameters["access_token"] as! String
                 var refreshToken = ""
                 if((responseParameters.objectForKey("refresh_token")) != nil){
-                    refreshToken = parameters["refresh_token"] as! String
+                    refreshToken = responseParameters["refresh_token"] as! String
                 }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
