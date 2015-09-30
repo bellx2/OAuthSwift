@@ -218,6 +218,7 @@ public class OAuth2Swift: NSObject {
                 }
                 self.client.credential.oauth_token = accessToken
                 self.client.credential.oauth2 = true
+                self.client.credential.oauth_token_refresh = refreshToken
                 success(credential: self.client.credential, response: response, parameters: responseParameters)
             }, failure: failure)
         }
