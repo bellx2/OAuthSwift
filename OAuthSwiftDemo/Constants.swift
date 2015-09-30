@@ -88,3 +88,23 @@ let Intuit =
     "consumerKey": "***",
     "consumerSecret": "***"
 ]
+let Zaim =
+[
+    "consumerKey": "***",
+    "consumerSecret": "***"
+]
+let Tumblr =
+[
+    "consumerKey": "***",
+    "consumerSecret": "***"
+]
+let Slack =
+[
+    "consumerKey": "***",
+    "consumerSecret": "***"
+]
+let Uber =
+[
+    "consumerKey": "***",
+    "consumerSecret": "***"
+]
